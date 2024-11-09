@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lectura Mental</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 100px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        input {
+            padding: 10px;
+            font-size: 16px;
+            width: 200px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        #barra {
+            display: none;
+            width: 100%;
+            background-color: #ddd;
+        }
+        #progreso {
+            width: 1%;
+            height: 30px;
+            background-color: #4CAF50;
+        }
+        #mensaje {
+            font-size: 18px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Piensa en un número</h1>
+    <p style="color: red;">(Ahhh pero un cosa antes, ni se te ocurra pensar en el 13)</p>
+    <h1> Ahora si, Escribelo Aquí.</h1>
+    <h1>👇🏼👇🏼👇🏼</h1>
+    <input type="number" id="numeroPensado" placeholder="Escribe un número">
+    <br>
+    <button onclick="leerMente()">Leer tu mente</button>
+    <div id="barra">
+        <div id="progreso"></div>
+    </div>
+    <p id="mensaje"></p>
+
+    <script>
+        function leerMente() {
+            var numero = document.getElementById("numeroPensado").value;
+            if (numero === "") {
+                alert("Por favor, escribe un número antes de leer tu mente.");
+                return;
+            }
+
+            // Reiniciar barra de progreso y mensajes
+            document.getElementById("barra").style.display = "block";
+            document.getElementById("progreso").style.width = "1%";
+            document.getElementById("mensaje").innerHTML = "Preparando para leer tu mente...";
+
+            var progreso = 1;
+            var mensajes = [
+                "Procesando...",
+                "Leyendo tu mente...",
+                "Estamos entrando en tus pensamientos...",
+                "Uyyy pero que mente sucia",
+                "Por favor, espera...",
+                "Casi listo..."
+            ];
+
+            var intervalo = setInterval(function() {
+                if (progreso >= 100) {
+                    clearInterval(intervalo);
+
+                    // Condición especial para el número 13
+                    if (numero == 13) {
+                        document.getElementById("mensaje").innerHTML = "¡Aquí está para que me las beses!";
+                    } else {
+                        document.getElementById("mensaje").innerHTML = "Estás pensando en el número: " + numero;
+                    }
+
+                } else {
+                    progreso++;
+                    document.getElementById("progreso").style.width = progreso + "%";
+
+                    // Mostrar mensajes divertidos cada vez que el progreso sea múltiplo de 20
+                    if (progreso % 30 === 0 && progreso < 100) {
+                        var mensajeIndex = Math.floor(progreso / 20) - 1;
+                        document.getElementById("mensaje").innerHTML = mensajes[mensajeIndex];
+                    }
+                }
+            }, 200);
+        }
+    </script>
+</body>
+</html>
